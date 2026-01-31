@@ -1,0 +1,103 @@
+.accordion {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+    transition: box-shadow var(--transition-fast);
+}
+
+.accordion:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color var(--transition-fast);
+}
+
+.accordion-header:hover {
+    background-color: var(--bg-hover);
+}
+
+.accordion-header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.accordion-icon {
+    font-size: 1.25rem;
+}
+
+.accordion-title {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.accordion-badge {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    padding: 2px 8px;
+    background-color: rgba(99, 102, 241, 0.15);
+    color: var(--color-primary);
+    border-radius: var(--radius-full);
+}
+
+.accordion-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--text-tertiary);
+    transition: transform var(--transition-fast);
+}
+
+.accordion.open .accordion-arrow {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal);
+}
+
+.accordion.open .accordion-content {
+    max-height: 2000px;
+}
+
+.accordion-body {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+.accordion-body p {
+    margin-bottom: var(--space-md);
+}
+
+.accordion-body ul,
+.accordion-body ol {
+    margin-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+}
+
+.accordion-body li {
+    margin-bottom: var(--space-sm);
+    list-style: disc;
+}
+
+.accordion-body ol li {
+    list-style: decimal;
+}
