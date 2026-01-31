@@ -9,8 +9,15 @@ import { allTopics, miniProjectsData, checklistData } from './data';
 import './App.css';
 
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState(null);
-  const [selectedSubtopic, setSelectedSubtopic] = useState(null);
+  // Persist selected topic/subtopic in localStorage
+  const [selectedTopic, setSelectedTopic] = useState(() => {
+    const saved = localStorage.getItem('selected-topic');
+    return saved || null;
+  });
+  const [selectedSubtopic, setSelectedSubtopic] = useState(() => {
+    const saved = localStorage.getItem('selected-subtopic');
+    return saved || null;
+  });
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [completedTopics, setCompletedTopics] = useState(() => {
@@ -33,6 +40,24 @@ function App() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Save selected topic to localStorage
+  useEffect(() => {
+    if (selectedTopic) {
+      localStorage.setItem('selected-topic', selectedTopic);
+    } else {
+      localStorage.removeItem('selected-topic');
+    }
+  }, [selectedTopic]);
+
+  // Save selected subtopic to localStorage
+  useEffect(() => {
+    if (selectedSubtopic) {
+      localStorage.setItem('selected-subtopic', selectedSubtopic);
+    } else {
+      localStorage.removeItem('selected-subtopic');
+    }
+  }, [selectedSubtopic]);
 
   // Save progress
   useEffect(() => {
