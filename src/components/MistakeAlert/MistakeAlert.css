@@ -80,3 +80,34 @@
 [data-theme="dark"] .mistake-section.correct {
     background-color: rgba(16, 185, 129, 0.1);
 }
+
+/* Mobile Responsive - 600px breakpoint */
+@media (max-width: 600px) {
+    .mistake-alert {
+        margin-bottom: var(--space-md);
+    }
+
+    .mistake-section {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .mistake-header {
+        margin-bottom: var(--space-xs);
+    }
+
+    .mistake-icon {
+        font-size: 1rem;
+    }
+
+    .mistake-label {
+        font-size: var(--text-xs);
+    }
+
+    .mistake-content {
+        font-size: var(--text-sm);
+    }
+
+    .mistake-content code {
+        font-size: var(--text-xs);
+    }
+}

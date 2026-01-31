@@ -101,3 +101,38 @@
 .accordion-body ol li {
     list-style: decimal;
 }
+
+/* Mobile Responsive - 600px breakpoint */
+@media (max-width: 600px) {
+    .accordion {
+        margin-bottom: var(--space-sm);
+    }
+
+    .accordion-header {
+        padding: var(--space-sm) var(--space-md);
+        min-height: 44px;
+    }
+
+    .accordion-icon {
+        font-size: 1rem;
+    }
+
+    .accordion-title {
+        font-size: var(--text-sm);
+    }
+
+    .accordion-badge {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+
+    .accordion-body {
+        padding: 0 var(--space-md) var(--space-md);
+        font-size: var(--text-sm);
+    }
+
+    .accordion-body ul,
+    .accordion-body ol {
+        margin-left: var(--space-md);
+    }
+}

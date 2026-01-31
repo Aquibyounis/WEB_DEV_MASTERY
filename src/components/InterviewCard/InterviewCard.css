@@ -137,3 +137,41 @@
     margin: 0;
     line-height: var(--leading-relaxed);
 }
+
+/* Mobile Responsive - 600px breakpoint */
+@media (max-width: 600px) {
+    .interview-card {
+        padding: var(--space-md);
+        margin-bottom: var(--space-sm);
+    }
+
+    .interview-card:hover {
+        transform: none;
+    }
+
+    .interview-question h4 {
+        font-size: var(--text-sm);
+    }
+
+    .reveal-btn {
+        min-height: 44px;
+        font-size: var(--text-base);
+    }
+
+    .interview-answer {
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+    }
+
+    .answer-content p {
+        font-size: var(--text-sm);
+    }
+
+    .interview-tip {
+        padding: var(--space-sm);
+    }
+
+    .interview-tip p {
+        font-size: var(--text-xs);
+    }
+}

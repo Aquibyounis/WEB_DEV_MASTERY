@@ -28,6 +28,9 @@ function Sidebar({ isOpen, onToggle, selectedTopic, onTopicSelect, completedTopi
         ? Math.round((progress.completed / progress.total) * 100)
         : 0;
 
+    // Determine if mobile based on viewport
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
+
     return (
         <>
             {/* Mobile overlay */}
@@ -37,13 +40,23 @@ function Sidebar({ isOpen, onToggle, selectedTopic, onTopicSelect, completedTopi
             />
 
             <aside className={`sidebar ${isOpen ? 'open' : 'collapsed'}`}>
-                {/* Collapse/Expand Toggle Button */}
+                {/* Desktop collapse toggle */}
                 <button
                     className="sidebar-toggle"
                     onClick={onToggle}
                     title={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+                    aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
                 >
                     <span className="toggle-icon">{isOpen ? '◀' : '▶'}</span>
+                </button>
+
+                {/* Mobile close button */}
+                <button
+                    className="sidebar-close"
+                    onClick={onToggle}
+                    aria-label="Close menu"
+                >
+                    ✕
                 </button>
 
                 <div className="sidebar-header">
