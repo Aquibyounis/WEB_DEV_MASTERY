@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import ContentArea from './components/ContentArea/ContentArea';
 import MiniProjects from './components/MiniProjects/MiniProjects';
 import Checklist from './components/Checklist/Checklist';
+import BottomNav from './components/BottomNav/BottomNav';
 import { allTopics, miniProjectsData, checklistData } from './data';
 import './App.css';
 
@@ -11,31 +12,42 @@ function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [selectedSubtopic, setSelectedSubtopic] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const [completedTopics, setCompletedTopics] = useState(() => {
     const saved = localStorage.getItem('completed-topics');
     return saved ? JSON.parse(saved) : {};
   });
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 600;
+      setIsMobile(mobile);
+      // On mobile, sidebar should be closed by default
+      if (mobile) {
+        setSidebarOpen(false);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Save progress
   useEffect(() => {
     localStorage.setItem('completed-topics', JSON.stringify(completedTopics));
   }, [completedTopics]);
 
-  // Mobile: close sidebar when topic selected
+  // Handle topic selection
   const handleTopicSelect = (topicId) => {
     setSelectedTopic(topicId);
     setSelectedSubtopic(null);
-    if (window.innerWidth < 768) {
-      setSidebarOpen(false);
-    }
   };
 
   const handleSearchSelect = (topicId, subtopicId) => {
     setSelectedTopic(topicId);
     setSelectedSubtopic(subtopicId);
-    if (window.innerWidth < 768) {
-      setSidebarOpen(false);
-    }
   };
 
   const markTopicComplete = (topicId) => {
@@ -87,20 +99,24 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar
-        topics={allTopics}
-        selectedTopic={selectedTopic}
-        onTopicSelect={handleTopicSelect}
-        isOpen={sidebarOpen}
-        onToggle={() => setSidebarOpen(!sidebarOpen)}
-        completedTopics={completedTopics}
-        progress={{ completed: completedCount, total: totalTopics }}
-      />
+      {/* Sidebar - Desktop only */}
+      {!isMobile && (
+        <Sidebar
+          topics={allTopics}
+          selectedTopic={selectedTopic}
+          onTopicSelect={handleTopicSelect}
+          isOpen={sidebarOpen}
+          onToggle={() => setSidebarOpen(!sidebarOpen)}
+          completedTopics={completedTopics}
+          progress={{ completed: completedCount, total: totalTopics }}
+        />
+      )}
 
-      <div className={`main-content ${sidebarOpen ? '' : 'sidebar-collapsed'}`}>
+      <div className={`main-content ${!isMobile && !sidebarOpen ? 'sidebar-collapsed' : ''} ${isMobile ? 'mobile' : ''}`}>
         <Header
           onMenuClick={() => setSidebarOpen(!sidebarOpen)}
           onSearchSelect={handleSearchSelect}
+          isMobile={isMobile}
         />
 
         <main className="content-wrapper">
@@ -108,11 +124,11 @@ function App() {
         </main>
       </div>
 
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div
-          className="mobile-overlay"
-          onClick={() => setSidebarOpen(false)}
+      {/* Bottom Navigation - Mobile only */}
+      {isMobile && (
+        <BottomNav
+          selectedTopic={selectedTopic}
+          onTopicSelect={handleTopicSelect}
         />
       )}
     </div>

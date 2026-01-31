@@ -238,10 +238,9 @@
         gap: var(--space-sm);
     }
 
+    /* Hide hamburger - using BottomNav for navigation */
     .menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: none;
     }
 
     .header-title h1 {
